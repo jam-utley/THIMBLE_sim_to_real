@@ -1,10 +1,10 @@
-**Mission**
+**Mission**\\
 For robot enthusiasts who seek to streamline sim-to-real development, THIMBLE is a low-cost bipedal robot that democratizes Reinforcement Learning development. Built using Open Duck as a frame, THIMBLE demonstrates that reinforcement learning can be low-cost and still produce good quality results.
 
-**Target User**
+**Target User**\\
 The target user for this product is primarily robotics enthusiasts, students, and cosplayers, though the methods developed in the project are designed to be carried into larger projects.
 
-**User Stories**
+**User Stories**\\
 What follows are a number of imagined user statements that outline the goals of this project.\\
 As a Masters student, I want a robot that is cheap to make.\\
 As a robotics researcher, I want an RL pipeline that is readable, up-to-date, and easily modular/modifiable.\\
@@ -12,7 +12,7 @@ As a robotics hobbyist, I want a robot that I can show off to my friends.\\
 As a robotics enthusiast, I want a robot that I can push and it self-balances and can move over multiple types of terrain (hardwood floor, soft carpet, stone, etc.)\\
 As a cosplayer, I want a little guy who can follow me around and be cute.\\
 
-**Feasibility and Riskiest Assumptions**
+**Feasibility and Riskiest Assumptions**\\
 Key assumptions about the project:\\
 Assumption 1 – Simulation-to-robot function still works for IsaacSim and is not deprecated (meaning we would not have to remodel the robot). (If it is deprecated, we might as well design our own robot and build our own URDF and not use open duck at all).\\
 Assumption 2 – IsaacSim will properly model real-world physics and allow for sim-to-real transfer\\
