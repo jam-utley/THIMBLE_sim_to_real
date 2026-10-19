@@ -1,0 +1,10 @@
+pyproject.toml
+setup.py
+thimble_v1/__init__.py
+thimble_v1/ui_extension_example.py
+thimble_v1.egg-info/PKG-INFO
+thimble_v1.egg-info/SOURCES.txt
+thimble_v1.egg-info/dependency_links.txt
+thimble_v1.egg-info/not-zip-safe
+thimble_v1.egg-info/requires.txt
+thimble_v1.egg-info/top_level.txt
