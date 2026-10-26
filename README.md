@@ -8,7 +8,7 @@ THIMBLE is an acronym:
 -Making\
 -Blunders, but\
 -Learning\
--Eventually\
+-Eventually
 
 THIMBLE is the capstone project for my masters degree in electrical and computer engineering at Boston University. It is intended to be both rigorous and whimsical, with the Open Duck Mini V2 modeled after characters in Star Wars (namely BDX droids designed for Disney parks) but still retaining the inherent challenges of bipedal locomotion.\
 
