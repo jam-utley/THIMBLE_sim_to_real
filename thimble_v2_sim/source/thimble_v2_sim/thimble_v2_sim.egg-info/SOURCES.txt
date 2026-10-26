@@ -1,0 +1,10 @@
+pyproject.toml
+setup.py
+thimble_v2_sim/__init__.py
+thimble_v2_sim/ui_extension_example.py
+thimble_v2_sim.egg-info/PKG-INFO
+thimble_v2_sim.egg-info/SOURCES.txt
+thimble_v2_sim.egg-info/dependency_links.txt
+thimble_v2_sim.egg-info/not-zip-safe
+thimble_v2_sim.egg-info/requires.txt
+thimble_v2_sim.egg-info/top_level.txt
