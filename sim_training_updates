@@ -49,3 +49,6 @@ Resolution: Keep flat_orientation_l2 as it is for now, work on bringing out the 
 Training 9 - Subjects stuttering, barely moving forward.
 Adjusted feet_air_time param "threshold" to be 0.2 instead of 0.3.
 Resolution: Try "threshold": 0.25
+
+Training 10 - Subjects not moving at all, some falling.
+Resolution: reset "threshold" to 0.3. Increase feet_air_time weight from 1.0 -> 1.5 to try and get the knees moving correctly.
