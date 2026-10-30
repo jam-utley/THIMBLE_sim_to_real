@@ -17,3 +17,4 @@ The folders in this project correspond to the following:\
 -thimble_v2 -- up to date URDF export of Thimble, now with handmade simple collision geometry around the torso and the bottoms of the feet.\
 -thimble_v2_sim -- RL Simulation Attempt 2, currently active.\
 
+For updates on the state of simulator training, see sim_training_updates in main.\
