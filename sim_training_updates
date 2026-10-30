@@ -45,3 +45,7 @@ The tilting seen in training 6 still present but less so.
 Waddling behavior beginning to be seen.
 Some have the knees moving weird (i.e. backwards from where they should be).
 Resolution: Keep flat_orientation_l2 as it is for now, work on bringing out the waddling motion more by targeting knee motion.
+
+Training 9 - Subjects stuttering, barely moving forward.
+Adjusted feet_air_time param "threshold" to be 0.2 instead of 0.3.
+Resolution: Try "threshold": 0.25
