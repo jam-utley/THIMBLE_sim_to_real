@@ -1,7 +1,9 @@
 Training 1 - subjects remained stationary, bending in unrealistic manners. 
 Resolution: Increase forward movement rewards.\
+
 Training 2 - some subjects began to move forward, but scuttled their feet in unrealistic manner. 
 Resolution: decrease foot contact penalty.\
+
 Training 3 - more ubjects moving, none standing still. 
 Locomotion not realistic, mostly scuttling. 
 Subjects have begun to walk on tip toes like balerinas. 
@@ -9,7 +11,17 @@ feet_air_time_threshold changed from 0.2 to 0.3.
 Did not decrease the scuttling, just increased forward locomotion.
 Resolution: keep threshold at 0.3, look at other rewards to penalize scuttling.
 increase feet_air_time positive weight to 0.5\
+
 Training 4 - subjects began to take steps!
 locomotion still unrealistic, but MORE realistivc.
 Noticed knee joints don't seem to be bending much.
 Resoltuion: Increased feet_air_time_positive reward to 1.0
+
+Training 5 - All Subjects stepping.
+Steps are not large.
+Steps do not utilize knees.
+Perhaps Z axis velocity penalties are preventing them from moving.
+Adjust lin_vel_z_l2 from -2.0 to -0.5
+For future trainings, increase penalty for dof_pos_limits to prevent illegal movement (?).
+Resolution: adjust lin_vel_z_l2 to -2.0 from -0.5.
+Do not adjust other values until we see how this one affects results.
