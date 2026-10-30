@@ -43,13 +43,29 @@ class ThimbleRewards(RewardsCfg):
     termination_penalty = RewTerm(func=mdp.is_terminated, weight=-200.0)
     feet_air_time = RewTerm(
         func=mdp.feet_air_time_positive_biped,
-        weight=0.25,
+        weight = 1.0, #original, 0.25. better performance at 0.5
         params={
             "command_name": "base_velocity",
             "sensor_cfg": SceneEntityCfg("contact_forces", body_names=FEET),
-            "threshold": 0.2,    # H1 uses 0.4 s; a small robot steps faster
+            "threshold": 0.3,    # H1 uses 0.4 s; a small robot steps faster, originally 0.2 here
         },
     )
+    track_lin_vel_xy_exp = RewTerm(
+        func = mdp.track_lin_vel_xy_yaw_frame_exp,
+        weight = 2.0,
+        params={
+            "std": 0.2,
+            "command_name": "base_velocity",
+        }
+        )
+    lin_vel_z_l2 = RewTerm(
+        func = mdp.lin_vel_z_l2,
+        weight = -1.0, # Penalty. Original was -2.0, adjusted to -0.5 (too small), adjusted to -1.0
+        )
+    flat_orientation_l2 = RewTerm(
+        func = mdp.flat_orientation_l2,
+        weight = -0.5,
+        )
     # copy the remaining H1 terms here (feet_slide, joint limits, etc.),
     # replacing H1's body/joint names with yours
 
@@ -65,6 +81,10 @@ class ThimbleRoughEnvCfg(LocomotionVelocityRoughEnvCfg):
         self.actions.joint_pos.joint_names = LEG_JOINTS
 
         self.rewards.undesired_contacts = None
+
+        # edit prebuilt rewards ; see IsaacLab/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/velocity_env_cfg.py for a full list of inherited rewards.
+        #self.rewards.track_lin_vel_xy_exp.func = mdp.track_lin_vel_xy_yaw_frame_exp
+        #self.rewards.track_lin_vel_xy_exp.params["std"] = 0.2 #0.2 is the STARTING value
 
         # robot
         self.scene.robot = THIMBLE_V2_CFG.replace(prim_path="{ENV_REGEX_NS}/Robot")
