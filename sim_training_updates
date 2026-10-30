@@ -1,2 +1,10 @@
-Training 1 - subjects remained stationary, bending in unrealistic manners. Resolution: Increase forward movement rewards.\
-Training 2 - some subjects began to move forward, but scuttled their feet in unrealistic manner. Resolution: decrease foot contact penalty.\
+Training 1 - subjects remained stationary, bending in unrealistic manners. 
+Resolution: Increase forward movement rewards.\
+Training 2 - some subjects began to move forward, but scuttled their feet in unrealistic manner. 
+Resolution: decrease foot contact penalty.\
+Training 3 - more ubjects moving, none standing still. 
+Locomotion not realistic, mostly scuttling. 
+Subjects have begun to walk on tip toes like balerinas. 
+feet_air_time_threshold changed from 0.2 to 0.3. 
+Did not decrease the scuttling, just increased forward locomotion.
+Resolution: keep threshold at 0.3, look at other rewards to penalize scuttling.\
