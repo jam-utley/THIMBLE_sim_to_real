@@ -39,3 +39,9 @@ Adjusted flat_orientation_l2 from 0.0 to -1.0.
 flat_orientation_l2 keeps root (the torso) flat.
 Hypothesis: flat_oreintation_l2 weight=-1.0 is too negative to allow for the wobble required for Thimble to waddle.
 Resolution: Shrink weight to -0.5 and run again.
+
+Training 8 - all subjects moving again.
+The tilting seen in training 6 still present but less so.
+Waddling behavior beginning to be seen.
+Some have the knees moving weird (i.e. backwards from where they should be).
+Resolution: Keep flat_orientation_l2 as it is for now, work on bringing out the waddling motion more by targeting knee motion.
