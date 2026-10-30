@@ -33,3 +33,9 @@ All subjects leaning forward and left.
 Steps seem more natural, but leave much to be desired.
 Knees still not activated while walking.
 Resolution: Figure out how to keep subjects upright.
+
+Training 7 - All subjects immobile, but balancing.
+Adjusted flat_orientation_l2 from 0.0 to -1.0.
+flat_orientation_l2 keeps root (the torso) flat.
+Hypothesis: flat_oreintation_l2 weight=-1.0 is too negative to allow for the wobble required for Thimble to waddle.
+Resolution: Shrink weight to -0.5 and run again.
