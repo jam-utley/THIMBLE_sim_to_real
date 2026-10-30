@@ -9,3 +9,7 @@ feet_air_time_threshold changed from 0.2 to 0.3.
 Did not decrease the scuttling, just increased forward locomotion.
 Resolution: keep threshold at 0.3, look at other rewards to penalize scuttling.
 increase feet_air_time positive weight to 0.5\
+Training 4 - subjects began to take steps!
+locomotion still unrealistic, but MORE realistivc.
+Noticed knee joints don't seem to be bending much.
+Resoltuion: Increased feet_air_time_positive reward to 1.0
