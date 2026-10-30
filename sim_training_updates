@@ -25,3 +25,11 @@ Adjust lin_vel_z_l2 from -2.0 to -0.5
 For future trainings, increase penalty for dof_pos_limits to prevent illegal movement (?).
 Resolution: adjust lin_vel_z_l2 to -2.0 from -0.5.
 Do not adjust other values until we see how this one affects results.
+
+Training 6 - Most subjects stepping.
+Adjusted lin_vel_z_l2 to -1.0. 
+Anything smaller than -1.0 caused the physics to crash bc it started hopping.
+All subjects leaning forward and left.
+Steps seem more natural, but leave much to be desired.
+Knees still not activated while walking.
+Resolution: Figure out how to keep subjects upright.
