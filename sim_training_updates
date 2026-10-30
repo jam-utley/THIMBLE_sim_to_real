@@ -52,3 +52,11 @@ Resolution: Try "threshold": 0.25
 
 Training 10 - Subjects not moving at all, some falling.
 Resolution: reset "threshold" to 0.3. Increase feet_air_time weight from 1.0 -> 1.5 to try and get the knees moving correctly.
+
+Training 11 - Subjects stepping.
+Knees still bending weird.
+shoulders bending and then not resetting to proper orientation.
+UPLOADED TO GITHUB.
+Resolution: 
+-write specific reward function to keep knees bending the right way.
+-write specific reward function to reset hip_roll left and right to 0 position.
