@@ -1,3 +1,4 @@
+10-30-2026
 Training 1 - subjects remained stationary, bending in unrealistic manners. 
 Resolution: Increase forward movement rewards.\
 
@@ -76,3 +77,9 @@ Changed initial positions worked very well for them to have the desired leg shap
 Cause of training 20 failure: hips_knees_retain_orientation.
 Hypothesis: Since the hips and the knees were being told to hold position, SOMETHING caused it to try to jump and when it did it, well, broke the simulator.
 Resolution: Increase feet_air_time rewards to try and get more steps.
+
+Training 22 - Subjects talking larger small steps.
+Some subjects are not moving forward, but most are.
+Some subjects are waddling well. Partner says " ooohhh look at the wwadddleeee ooohhhh ohohoohohoohhhh they doing ittt!!11"
+Hips are dipping down, perhaps reintroduce joint maintenance rewards?
+Resolution: Further increase feet_air_time rewards.
