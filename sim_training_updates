@@ -75,4 +75,4 @@ Training 21 - Subjects Tip Toeing.
 Changed initial positions worked very well for them to have the desired leg shape for locomotion.
 Cause of training 20 failure: hips_knees_retain_orientation.
 Hypothesis: Since the hips and the knees were being told to hold position, SOMETHING caused it to try to jump and when it did it, well, broke the simulator.
-Resolution: Readjust lin_vel_z_l2 back to -1.0 to try to get more steps.
+Resolution: Increase feet_air_time rewards to try and get more steps.
