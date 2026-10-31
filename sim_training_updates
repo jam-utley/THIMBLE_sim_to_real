@@ -68,4 +68,5 @@ Changed initial position to desired position to try and get a more desirable res
 Result was subjects falling on their butts and failing.
 Incorporated a bunch of functions provided by Claude to clip values that explode due to unstable physics interactions, but ultimately scrapped these because it hid the real physics problems underlying the system.
 Hypothesis: the simulator started crashing when I decreased the penalty for lin_vel_z_l2 from -2.0 to -1.0. I suspect this is the issue.
-Rresolution: Comment out the Claude provided clipping functions and increase the penalty abck to -2.0
+Resolution: Comment out the Claude provided clipping functions and increase the penalty abck to -2.0
+Training Failure ::: resolution - reduce user added weights and values until 
