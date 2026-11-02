@@ -83,3 +83,10 @@ Some subjects are not moving forward, but most are.
 Some subjects are waddling well. Partner says " ooohhh look at the wwadddleeee ooohhhh ohohoohohoohhhh they doing ittt!!11"
 Hips are dipping down, perhaps reintroduce joint maintenance rewards?
 Resolution: Further increase feet_air_time rewards.
+
+10-31-26
+
+Training 23 - Increased feet_air_time reward weight from 2.0 to 10.0.
+Strangely, subjects didn't move forward as much. 
+Feet did get higher off the ground for ones that did move, but perhaps too high.
+Resolution: Reduce feet_air_time_weight to 5.0 and increase forward linear velocity reward to encourage movement.
