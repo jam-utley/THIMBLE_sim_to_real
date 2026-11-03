@@ -104,3 +104,11 @@ This caused it to crash.
 Set termination penalty to -200 to assess if it was the threshold or the terminaiton penalty.
 Subjects move forward, but the feet are not coming up in good steps.
 Resolution: Instead of resetting threshold to 0.3, increase reward weight for track_lin_vel_xy_exp from 2.0 to 4.0.
+
+11-3-2026
+
+Training 26 - Subjects are stepping very clearly!
+track_lin_vel_xy_exp at 4.0 gave great results.
+There is still some shuffling, some subjects still remaining still.
+Resolution: increase step threshold from 0.25s to 0.275s
+
