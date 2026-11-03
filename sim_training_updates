@@ -112,3 +112,7 @@ track_lin_vel_xy_exp at 4.0 gave great results.
 There is still some shuffling, some subjects still remaining still.
 Resolution: increase step threshold from 0.25s to 0.275s
 
+Training 27 - Subjects using simulator exploits (not stepping).
+Some subjects even observed falling.
+I wonder if this is somehow a weird in-beteween for 2.5s and 3s where they step at both, but in between they use an exploit.
+Resoution: Increase step threshold to from 0.275s to 0.29s.
