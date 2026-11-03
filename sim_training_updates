@@ -98,3 +98,5 @@ I hypothesize that this causes them to have too large of steps.
 Therefore, Training 24 runs with feet_air_time weight = 10.0, BUT with threshold = 0.2s.
 The result: their egs go out and they vibrate forward. There is some walking, but not much. 
 Resolution: increase threshold to 0.25. Consider reducing falling penalty so they don't take this weird wide stance.
+
+Training 25 - Threshold increased to 0.25; termination penalty reduced to -100 from -200.
