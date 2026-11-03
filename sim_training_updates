@@ -116,3 +116,9 @@ Training 27 - Subjects using simulator exploits (not stepping).
 Some subjects even observed falling.
 I wonder if this is somehow a weird in-beteween for 2.5s and 3s where they step at both, but in between they use an exploit.
 Resoution: Increase step threshold to from 0.275s to 0.29s.
+
+Training 28 - threshold at 0.29s = Failure.
+Ran the sim twice and it crashed both times around the same spot (~1250 steps).
+It must be that the feet_air_time reward is high enough to get feet up, but the threshold is too high which means they're prioritized to keep their feet up too long.
+Then they would probably fall, so the simulator would resort to jumping which, as we know, breaks IsaacSim...
+Resolution: Reduce step threshold back to 0.25s since it had success in Training 26. Increase rack_lin_vel_xy_exp weight from 5.0 to 7.5
