@@ -100,3 +100,7 @@ The result: their egs go out and they vibrate forward. There is some walking, bu
 Resolution: increase threshold to 0.25. Consider reducing falling penalty so they don't take this weird wide stance.
 
 Training 25 - Threshold increased to 0.25; termination penalty reduced to -100 from -200.
+This caused it to crash.
+Set termination penalty to -200 to assess if it was the threshold or the terminaiton penalty.
+Subjects move forward, but the feet are not coming up in good steps.
+Resolution: Instead of resetting threshold to 0.3, increase reward weight for track_lin_vel_xy_exp from 2.0 to 4.0.
