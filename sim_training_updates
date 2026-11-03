@@ -90,3 +90,9 @@ Training 23 - Increased feet_air_time reward weight from 2.0 to 10.0.
 Strangely, subjects didn't move forward as much. 
 Feet did get higher off the ground for ones that did move, but perhaps too high.
 Resolution: Reduce feet_air_time_weight to 5.0 and increase forward linear velocity reward to encourage movement.
+
+11-2-2026
+
+Training 24 - I had a thought: What if the weight was not the problem, but the air_time=0.3s was the problem.
+I hypothesize that this causes them to have too large of steps.
+Therefore, Training 24 runs with feet_air_time weight = 10.0, BUT with threshold = 0.2s
