@@ -131,3 +131,6 @@ I'm not crazy, it did work on that combo (threshold 2.5, lin_vel_xy_exp 5.0).
 Some subjects still remain stationary.
 All subjects tilt upwards.
 Resolution: increase lin_vel_xy_exp weight from 5.0 to 6.0.
+
+Training 31 - More subjects are moving forward, but they are using more simulator exploits.
+Resolution: set lin_vel_xy_exp weight to 5.0. Reintroduce term to keep shoulders from pushing backwards.
