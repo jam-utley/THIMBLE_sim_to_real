@@ -125,3 +125,9 @@ Resolution: Reduce step threshold back to 0.25s since it had success in Training
 
 Trainign 29 - Subjects are scooting user simulator exploits.
 Resolution: Run a training at threshold 0.25 and lin_vel_xy_exp weight set to 5.0 to make sure I'm not crazy.
+
+Training 30 - Succesfully recreated Training 27.
+I'm not crazy, it did work on that combo (threshold 2.5, lin_vel_xy_exp 5.0).
+Some subjects still remain stationary.
+All subjects tilt upwards.
+Resolution: increase lin_vel_xy_exp weight from 5.0 to 6.0.
