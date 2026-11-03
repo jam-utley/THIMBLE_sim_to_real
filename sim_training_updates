@@ -122,3 +122,6 @@ Ran the sim twice and it crashed both times around the same spot (~1250 steps).
 It must be that the feet_air_time reward is high enough to get feet up, but the threshold is too high which means they're prioritized to keep their feet up too long.
 Then they would probably fall, so the simulator would resort to jumping which, as we know, breaks IsaacSim...
 Resolution: Reduce step threshold back to 0.25s since it had success in Training 26. Increase rack_lin_vel_xy_exp weight from 5.0 to 7.5
+
+Trainign 29 - Subjects are scooting user simulator exploits.
+Resolution: Run a training at threshold 0.25 and lin_vel_xy_exp weight set to 5.0 to make sure I'm not crazy.
