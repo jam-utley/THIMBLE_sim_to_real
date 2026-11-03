@@ -134,3 +134,9 @@ Resolution: increase lin_vel_xy_exp weight from 5.0 to 6.0.
 
 Training 31 - More subjects are moving forward, but they are using more simulator exploits.
 Resolution: set lin_vel_xy_exp weight to 5.0. Reintroduce term to keep shoulders from pushing backwards.
+
+Training 32 - Some subjects falling.
+shoulders keep better to initialized region.
+Subjects seen turning in a circle.
+Stepping is still good.
+Resolution: increase weight of flat_oreintation_l2 penalty from -0.5 to -1.0 to try and have them keep their torso's straighter.
