@@ -151,3 +151,7 @@ Resolution: Increase feet_slide penaty to -0.5
 
 Traning 35 - Still some sliding.
 Resolution: Increase feet_slide penalty to -1.0
+
+Training 36 - Much improved stepping!
+All subjects moving. Could still be picking up their feet more.
+Resolution: Look at tensorboard tomorrow for this one and see what values are converging and to where. Then decide what values to adjust.
