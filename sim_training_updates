@@ -140,3 +140,7 @@ shoulders keep better to initialized region.
 Subjects seen turning in a circle.
 Stepping is still good.
 Resolution: increase weight of flat_oreintation_l2 penalty from -0.5 to -1.0 to try and have them keep their torso's straighter.
+
+Training 33 - Subjects using exploits to not walk. 
+-1.0 is way too high.
+Resolution: change weight of flat_orientation_l2 penalty to -0.6
