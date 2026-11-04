@@ -144,3 +144,7 @@ Resolution: increase weight of flat_oreintation_l2 penalty from -0.5 to -1.0 to 
 Training 33 - Subjects using exploits to not walk. 
 -1.0 is way too high.
 Resolution: change weight of flat_orientation_l2 penalty to -0.6
+
+Training 34 - Added feet_slide penalty, weight -0.2.
+That worked remarkably well. They don't slide their feet at all now!
+Resolution: Increase feet_slide penaty to -0.5
