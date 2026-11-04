@@ -148,3 +148,6 @@ Resolution: change weight of flat_orientation_l2 penalty to -0.6
 Training 34 - Added feet_slide penalty, weight -0.2.
 That worked remarkably well. They don't slide their feet at all now!
 Resolution: Increase feet_slide penaty to -0.5
+
+Traning 35 - Still some sliding.
+Resolution: Keep feet_slide penalty as is, change joint_deviation_l1 to stand_still_joint_deviation_l1
