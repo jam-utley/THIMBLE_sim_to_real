@@ -155,3 +155,9 @@ Resolution: Increase feet_slide penalty to -1.0
 Training 36 - Much improved stepping!
 All subjects moving. Could still be picking up their feet more.
 Resolution: Look at tensorboard tomorrow for this one and see what values are converging and to where. Then decide what values to adjust.
+
+11-6-2026
+Training 37 - I changed a lot of weights, too many to  ention them all individually.
+I started to incorporate terms from midnight-tech-explore's BDX-droid isaacsim implementation.
+Much still needs to be incorporated, but the lower weighted terms performed as well if not better than the larger weighted terms that produced successes in Training 36.
+Resolution: Further incorporate aspects of midnight-tech-explore's implementation, including curriculum learning, and fine tune it to get a walking robot by the end of today.
