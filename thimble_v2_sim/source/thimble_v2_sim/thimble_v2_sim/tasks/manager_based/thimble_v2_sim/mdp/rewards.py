@@ -25,3 +25,13 @@ def joint_pos_target_l2(env: ManagerBasedRLEnv, target: float, asset_cfg: SceneE
     joint_pos = wrap_to_pi(asset.data.joint_pos[:, asset_cfg.joint_ids])
     # compute the reward
     return torch.sum(torch.square(joint_pos - target), dim=1)
+
+def joint_target_exp(env: ManagerBasedRLEnv, target: float, std: float,
+                     asset_cfg: SceneEntityCfg = SceneEntityCfg("robot")) -> torch.Tensor:
+    """
+    Reward joint positions near a fixed target (Gaussian kernel, range [0, 1]).
+    Custom Function, drafted by Claude Opus 5.5 10-30-2026
+    """
+    asset: Articulation = env.scene[asset_cfg.name]
+    err = asset.data.joint_pos[:, asset_cfg.joint_ids] - target
+    return torch.exp(-torch.sum(err**2, dim=1) / std**2)

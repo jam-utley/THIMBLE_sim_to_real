@@ -13,6 +13,9 @@ class ThimbleRoughPPORunnerCfg(RslRlOnPolicyRunnerCfg):
     max_iterations = 3000
     save_interval = 50
     experiment_name = "thimble_rough"
+    
+    #clip_actions = 5.0 #ADDED to stabilize exploding terms
+
     policy = RslRlPpoActorCriticCfg(
         init_noise_std=1.0,
         actor_obs_normalization=False,
@@ -25,7 +28,7 @@ class ThimbleRoughPPORunnerCfg(RslRlOnPolicyRunnerCfg):
         value_loss_coef=1.0,
         use_clipped_value_loss=True,
         clip_param=0.2,
-        entropy_coef=0.01,
+        entropy_coef=0.005,    #Changed from 0.01 since values were exploding
         num_learning_epochs=5,
         num_mini_batches=4,
         learning_rate=1.0e-3,
@@ -35,6 +38,7 @@ class ThimbleRoughPPORunnerCfg(RslRlOnPolicyRunnerCfg):
         desired_kl=0.01,
         max_grad_norm=1.0,
     )
+
 
 @configclass
 class ThimbleFlatPPORunnerCfg(ThimbleRoughPPORunnerCfg):

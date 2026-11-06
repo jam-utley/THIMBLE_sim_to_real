@@ -41,18 +41,18 @@ THIMBLE_V2_CFG = ArticulationCfg(
         joint_pos={ 
             "scapula_left"       :   0.0,
             "hip_left"           :   0.0,
-            "roll_to_pitch_left" :   0.0,#math.radians(30.0),
-            "knee_left"          :   0.0,#math.radians(90.0),
-            "ankle_left"         :   0.0,
+            "roll_to_pitch_left" :   math.radians(-25), #0.0,#math.radians(30.0),
+            "knee_left"          :   math.radians(60), #0.0, #math.radians(90.0),
+            "ankle_left"         :   math.radians(-35), #0.0,
             "scapula_right"      :   0.0,
             "hip_right"          :   0.0,
-            "roll_to_pitch_right":   0.0,
-            "knee_right"         :   0.0,
-            "ankle_right"        :   0.0,
+            "roll_to_pitch_right":   math.radians(25), #0.0,
+            "knee_right"         :   math.radians(60), #0.0,
+            "ankle_right"        :   math.radians(-35), #0.0,
             "head_yaw"           :   0.0,
             "head_roll"          :   0.0,
-            "head_pitch"         :   0.0,#math.radians(15.0),
-            "neck_c7_vertebra"   :   0.0,#math.radians(20.0)
+            "head_pitch"         :   math.radians(-35), #0.0,#math.radians(15.0),
+            "neck_c7_vertebra"   :   math.radians(35), #0.0,#math.radians(20.0)
         },
         joint_vel={".*": 0.0}, # ".*" is a regex pattern meaning "every joint" so here it is "every joint starts at 0.0 velocity" which is what we want
     ),
