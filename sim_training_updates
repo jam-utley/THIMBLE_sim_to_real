@@ -161,3 +161,9 @@ Training 37 - I changed a lot of weights, too many to  ention them all individua
 I started to incorporate terms from midnight-tech-explore's BDX-droid isaacsim implementation.
 Much still needs to be incorporated, but the lower weighted terms performed as well if not better than the larger weighted terms that produced successes in Training 36.
 Resolution: Further incorporate aspects of midnight-tech-explore's implementation, including curriculum learning, and fine tune it to get a walking robot by the end of today.
+
+11-12-2026
+Training 38
+Finally got the action_rate to not explode after adding a limiting variable, clip_actions = 5.0, in rsl_rl_ppo_cfg.py.
+Added foot_clearance term, weight=0.001. Still some limping. 
+Resolution: Increase weight of foot_clearance to 0.01.
