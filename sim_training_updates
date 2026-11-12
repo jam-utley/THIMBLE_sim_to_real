@@ -167,3 +167,7 @@ Training 38
 Finally got the action_rate to not explode after adding a limiting variable, clip_actions = 5.0, in rsl_rl_ppo_cfg.py.
 Added foot_clearance term, weight=0.001. Still some limping. 
 Resolution: Increase weight of foot_clearance to 0.01.
+
+Training 39
+The steps seem more natural, but there is still some shambling/limping.
+Resolution: Look at Tensorboard for the training and see if the terms are converging the way I want them to.
