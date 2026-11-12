@@ -171,3 +171,12 @@ Resolution: Increase weight of foot_clearance to 0.01.
 Training 39
 The steps seem more natural, but there is still some shambling/limping.
 Resolution: Look at Tensorboard for the training and see if the terms are converging the way I want them to.
+
+Training 40
+I have spent a lot of time figuring out the problems.
+Claude identified tensorboard errors I had missed, namely that mean_noise_std was blowing up.
+Through diagnostics I discovered that the joints were being held at their limits for almost the entirety of the training, with the left side holding tighter than the right which would explain the shambling/limping I saw in training 39.
+Instituted a joint target in ThimbleRoughEnvCfg to ensure simulation sticks to the URDF limits.
+It seemed successful!
+Now that an underlying problem has been fixed, now I will be going through the reward terms one at a time, adjusting the weights so that I get the behavior I want.
+Resolution: Adjust reward terms one at a time and train.
