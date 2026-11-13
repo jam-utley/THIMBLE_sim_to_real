@@ -187,3 +187,12 @@ After this training, I will probably reduce feet_air_time weight from 10.0 to 3.
 Movement was good during the training.
 Resolution: Follow suggestion from claude, decrease feet_air_time_weight from 10.0 to 3.0
 
+Training 42 - still some robots standing.
+Resolution: Remove foot_clearance beacuse it awards staanding still.
+
+Training 43 -
+Subjects following velocity.
+feet_air_time is shown still increasing.
+Subjects not really standing still so this is good.
+We aren't going to see more results without increasing training steps.
+Resolution: Increase epochs from 1500 to 3000 and if it still looks good and like it could still improve (on Tensorboard), increase epoch steps again.
