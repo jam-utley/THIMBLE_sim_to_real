@@ -196,3 +196,7 @@ feet_air_time is shown still increasing.
 Subjects not really standing still so this is good.
 We aren't going to see more results without increasing training steps.
 Resolution: Increase epochs from 1500 to 3000 and if it still looks good and like it could still improve (on Tensorboard), increase epoch steps again.
+
+Training 44 -
+Feet_air_time still increasing in tensorboard output.
+Resolution: Increase training epochs from 3,000 to 10,000.
