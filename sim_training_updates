@@ -180,3 +180,10 @@ Instituted a joint target in ThimbleRoughEnvCfg to ensure simulation sticks to t
 It seemed successful!
 Now that an underlying problem has been fixed, now I will be going through the reward terms one at a time, adjusting the weights so that I get the behavior I want.
 Resolution: Adjust reward terms one at a time and train.
+
+Training 41 - Adding foot_clearance back in to try to get the feet a little bit higher, weight set at 0.1.
+Claude is telling me that feet_air_time is weighted too  high because the rewards are higher for staying in one spot and raising feet rather than following the velocity direction.
+After this training, I will probably reduce feet_air_time weight from 10.0 to 3.0, as per Claude's recommendation. This should still prioritize stepping but also make it actually move and not just rock back and forth.
+Movement was good during the training.
+Resolution: Follow suggestion from claude, decrease feet_air_time_weight from 10.0 to 3.0
+
