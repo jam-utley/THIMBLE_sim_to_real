@@ -30,6 +30,7 @@ from isaaclab_tasks.manager_based.locomotion.velocity.velocity_env_cfg import (
 )
 from thimble_v2_sim.assets.thimble_cfg import THIMBLE_V2_CFG
 
+
 ##
 # Scene definition
 ##
@@ -47,7 +48,7 @@ class ThimbleRewards(RewardsCfg):
         )
     feet_air_time = RewTerm(
         func=mdp.feet_air_time_positive_biped,
-        weight = 10.0, #original, 0.25. better performance at 0.5. Increased from 2->10
+        weight = 3.0, #original, 0.25. better performance at 0.5. Increased from 2->10
         params={
             "command_name": "base_velocity",
             "sensor_cfg": SceneEntityCfg("contact_forces", body_names=FEET),
@@ -56,16 +57,22 @@ class ThimbleRewards(RewardsCfg):
     )
     track_lin_vel_xy_exp = RewTerm(
         func = mdp.track_lin_vel_xy_yaw_frame_exp,
-        weight = 6.0, #originally 2.0
+        weight = 1.5, #originally 2.0
         params={
             "std": 0.2,
             "command_name": "base_velocity",
         }
         )
+    track_ang_vel_z_exp = RewTerm(
+        func=mdp.track_ang_vel_z_exp,
+        weight=0.5,  
+        params={"command_name": "base_velocity", "std": math.sqrt(0.25)},
+    )
     lin_vel_z_l2 = RewTerm(
         func = mdp.lin_vel_z_l2,
         weight = -2.0, # Penalty. Original was -2.0, adjusted to -0.5 (too small), adjusted to -1.0
         )
+    ang_vel_xy_l2 = RewTerm(func=mdp.ang_vel_xy_l2, weight=-0.05) 
     flat_orientation_l2 = RewTerm(
         func = mdp.flat_orientation_l2,
         weight = -0.6,
@@ -81,54 +88,44 @@ class ThimbleRewards(RewardsCfg):
     #Penalty for foot sliding
     feet_slide = RewTerm(
         func = mdp.feet_slide,
-        weight = -1.0,
+        weight = -0.4,
         params = {
             "asset_cfg": SceneEntityCfg("robot", body_names = FEET),
             "sensor_cfg": SceneEntityCfg("contact_forces", body_names = FEET)
         }
         )
-# Got rid of the following in favor of adjusting initial position instead
-#    shoulders_to_zero = RewTerm(
-#        func = mdp.joint_target_exp,
-#        weight = 0.5, #Reward: Must set to positive, otherwise will try to keep it FAR from target. Initially 0.5
-#        params = {
-#            "target": 0.0,
-#            "std": 0.15, #radian tolerance band, will need tuning. Originally 0.25. TOO WIDE range
-#            "asset_cfg": SceneEntityCfg("robot", joint_names=["scapula_left", "scapula_right"])
-#        }
-#        )
-#    knees_to_target = RewTerm(
-#        func = mdp.joint_target_exp,
-#        weight = 0.5,
-#        params = {
-#            "target": 1.0472,    #targets ~60 degrees, same as position FLEX2 in OnShape
-#            "std": 0.4,          #deviates +/- ~22 degrees = 0.4 rad, well within joint movement restriction of +/-90
-#            "asset_cfg": SceneEntityCfg("robot", joint_names=["knee_left", "knee_right"])
-#        }
-#        )
-    #Measures from thimble_cfg init state
-    #hips_knees_retain_orientation = RewTerm(
-    #    func = mdp.joint_deviation_l1,
-    #    weight = -0.2,
-    #    params = {
-    #        "asset_cfg": SceneEntityCfg("robot", joint_names=["scapula_left", "scapula_right","knee_left","knee_right"])
-    #    }
-    #    )
-    # copy the remaining H1 terms here (feet_slide, joint limits, etc.),
-    # replacing H1's body/joint names with yours
+    foot_clearance = RewTerm( #Foot Clearance is causing it to fail... hmmm figure this out in the morning
+        func=mdp.foot_clearance_reward,
+        weight=0.0,
+        params={
+            "std": 0.005,
+            "tanh_mult": 2.0,
+            "target_height": 0.05,
+            "asset_cfg": SceneEntityCfg("robot", body_names = FEET),
+        },
+        )
+    # Keeps actions from going into runaway
+    action_l2 = RewTerm(
+        func=mdp.action_l2,
+        weight=-0.01
+        )
 
-#@configclass
-#class ThimbleTerminations(TerminationsCfg):   # keeps time_out and base_contact
-#    joint_state_invalid = DoneTerm(
-#        func=mdp.joint_state_invalid,
-#        params={"max_joint_vel": 30.0, "log_every": 24},   # rad/s placeholder
-#    )
+@configclass
+class ThimbleTerminations(TerminationsCfg):   # keeps time_out and base_contact
+    joint_state_invalid = DoneTerm(
+        func=mdp.joint_state_invalid,
+        params={"max_joint_vel": 1.0e6, "log_every": 24, "big_action_sq": 100.0},
+    )
+    bad_orientation = DoneTerm(
+        func=mdp.bad_orientation,
+        params={"limit_angle": 1.0} # rad, ~57°
+    )
 
 
 @configclass
 class ThimbleRoughEnvCfg(LocomotionVelocityRoughEnvCfg):
     rewards: ThimbleRewards = ThimbleRewards()
-    #terminations: ThimbleTerminations = ThimbleTerminations()
+    terminations: ThimbleTerminations = ThimbleTerminations()
     def __post_init__(self):
         super().__post_init__()
         # rewards: base config's undesired_contacts targets ANYmal ".*THIGH" bodies
@@ -146,6 +143,24 @@ class ThimbleRoughEnvCfg(LocomotionVelocityRoughEnvCfg):
         self.scene.robot = THIMBLE_V2_CFG.replace(prim_path="{ENV_REGEX_NS}/Robot")
         if self.scene.height_scanner:
             self.scene.height_scanner.prim_path = "{ENV_REGEX_NS}/Robot/" + BASE
+            #Limits joint_toruqes to the legs only
+        self.rewards.dof_torques_l2.params["asset_cfg"] = SceneEntityCfg("robot", joint_names=LEG_JOINTS)
+
+        # limit the joint TARGETS (absolute rad, after scale + default offset) to the URDF limits
+        self.actions.joint_pos.clip = {
+            "scapula_left": (-0.524, 0.524),
+            "scapula_right": (-0.524, 0.524),
+            "hip_left": (-0.436, 0.436),
+            "hip_right": (-0.436, 0.436),
+            "roll_to_pitch_left": (-1.571, 0), #changed roll_to_pitch limits to match true bounds.
+            "roll_to_pitch_right": (0, 1.571),
+            "knee_left": (-1.571, 1.571),
+            "knee_right": (-1.571, 1.571),
+            "ankle_left": (-1.571, 1.571),
+            "ankle_right": (-1.571, 1.571),
+        }
+        # limit what the policy sees of its own last action, so large actions can't keep feeding on themselves
+        self.observations.policy.actions.clip = (-5.0, 5.0)
 
         # terminations: falling = base touches the ground
         self.terminations.base_contact.params["sensor_cfg"].body_names = [BASE]
@@ -161,14 +176,41 @@ class ThimbleRoughEnvCfg(LocomotionVelocityRoughEnvCfg):
         # events: the defaults are sized for 30+ kg robots
         self.events.add_base_mass = None
         self.events.base_com = None   # re-enable later, scaled to Thimble, bc normally for bigger robots
-        self.events.push_robot = None
+        self.events.push_robot = EventTerm(
+            func = mdp.push_by_setting_velocity,
+            mode = "interval",
+            interval_range_s = (4.0, 8.0),
+            params={"velocity_range": {"x": (-0.15, 0.15), "y": (-0.15, 0.15)}},
+        )
         self.events.base_external_force_torque.params["asset_cfg"].body_names = [BASE]
+
+        # resets sized for Thimble
+        # start velocity: Isaac Lab default is ±0.5 m/s and ±0.5 rad/s on every axis
+        self.events.reset_base.params["velocity_range"] = {
+            "x": (-0.25, 0.25),
+            "y": (-0.25, 0.25),
+            "z": (-0.25, 0.25),
+            "roll": (-0.25, 0.25),
+            "pitch": (-0.25, 0.25),
+            "yaw": (-0.25, 0.25),
+        }
+
+        # start pose: add ±0.1 rad to each leg joint's default
+        # (the default reset multiplies the default by 0.5–1.5, which never moves joints whose default is 0)
+        self.events.reset_robot_joints = EventTerm(
+            func=mdp.reset_joints_by_offset,
+            mode="reset",
+            params={
+                "position_range": (-0.1, 0.1),
+                "velocity_range": (0.0, 0.0),
+                "asset_cfg": SceneEntityCfg("robot", joint_names=LEG_JOINTS),
+            },
+        )
 
         # commands: small robot, small speeds
         self.commands.base_velocity.ranges.lin_vel_x = (0.0, 0.3)
         self.commands.base_velocity.ranges.lin_vel_y = (0.0, 0.0)
         self.commands.base_velocity.ranges.ang_vel_z = (-0.5, 0.5)
-
 
 @configclass
 class ThimbleFlatEnvCfg(ThimbleRoughEnvCfg):
@@ -198,3 +240,44 @@ class ThimbleFlatEnvCfg_PLAY(ThimbleFlatEnvCfg):
 
         self.scene.num_envs = 32
         self.observations.policy.enable_corruption = False
+
+@configclass
+class ThimbleFlatEnvCfg_ROBUST(ThimbleFlatEnvCfg_PLAY):
+    """Evaluation only: the original harsh Isaac Lab resets."""
+    def __post_init__(self):
+        super().__post_init__()
+        self.scene.num_envs = 256
+        self.events.push_robot = None
+        self.events.reset_base.params["velocity_range"] = {
+            k: (-0.5, 0.5) for k in ("x", "y", "z", "roll", "pitch", "yaw")
+        }
+        self.events.reset_robot_joints = EventTerm(
+            func=mdp.reset_joints_by_scale,
+            mode="reset",
+            params={"position_range": (0.5, 1.5), "velocity_range": (0.0, 0.0)},
+        )
+
+@configclass
+class ThimbleFlatEnvCfg_ROBUST_ORIG(ThimbleFlatEnvCfg_ROBUST):
+    """Original training conditions: harsh resets, no bad_orientation to compare with earlier runs."""
+    def __post_init__(self):
+        super().__post_init__()
+        self.terminations.bad_orientation = None
+
+@configclass
+class ThimbleFlatEnvCfg_ORIG(ThimbleFlatEnvCfg):
+    """Training conditions of the original run (2026-11-12): harsh Isaac Lab resets,
+    no bad_orientation, no pushes. The logging-only diag termination stays."""
+    def __post_init__(self):
+        super().__post_init__()
+        # harsh resets (Isaac Lab defaults)
+        self.events.reset_base.params["velocity_range"] = {
+            k: (-0.5, 0.5) for k in ("x", "y", "z", "roll", "pitch", "yaw")
+        }
+        self.events.reset_robot_joints = EventTerm(
+            func=mdp.reset_joints_by_scale, mode="reset",
+            params={"position_range": (0.5, 1.5), "velocity_range": (0.0, 0.0)},
+        )
+        # the original run had neither of these
+        self.terminations.bad_orientation = None
+        self.events.push_robot = None
